@@ -75,3 +75,6 @@ if [[ $TERM != linux ]] && command -v starship >/dev/null; then eval "$(starship
 else PROMPT=$'%F{#7fd6a8}%n%F{#aab4f2}@%F{#6b79d6}code4u %F{#aab4f2}%~\n%(?.%F{#e33a8e}.%F{#d8323c})❯%f '; fi
 
 [[ -o interactive ]] && [[ -z "$ZELLIJ$ZELLIJ_SESSION_NAME" ]] && [[ "$(ps -o comm= -p $PPID)" != zellij* ]] && command -v fastfetch >/dev/null && fastfetch
+
+# yazi: `y` abre el explorador y al salir te deja en la carpeta donde estabas
+y(){ local t; t=$(mktemp); yazi "$@" --cwd-file="$t"; local d; d=$(<"$t"); [ -n "$d" ] && [ "$d" != "$PWD" ] && cd -- "$d"; rm -f -- "$t"; }
