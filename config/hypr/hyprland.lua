@@ -263,12 +263,19 @@ hl.window_rule({
 hl.window_rule({
     name    = "thunar-glass",
     match   = { class = "^([Tt]hunar)$" },
-    opacity = "0.85 0.80",
+    opacity = "0.72 0.65",
 })
 
 -- Spotify translúcido como Thunar (CEF no deja fondo rgba: opacidad de ventana)
 hl.window_rule({
     name    = "spotify-glass",
     match   = { class = "^([Ss]potify)$" },
-    opacity = "0.85 0.80",
+    opacity = "0.75 0.68",
+})
+
+-- Discord: además del vidrio del CSS, un extra de transparencia de ventana
+hl.window_rule({
+    name    = "vesktop-glass",
+    match   = { class = "^(vesktop|discord)$" },
+    opacity = "0.85 0.78",
 })
