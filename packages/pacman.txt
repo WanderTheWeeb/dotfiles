@@ -78,6 +78,7 @@ starship
 sudo
 swaync
 system-config-printer
+tailscale
 terminus-font
 thunar
 thunar-archive-plugin

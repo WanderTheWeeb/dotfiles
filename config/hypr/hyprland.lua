@@ -136,6 +136,8 @@ hl.config({
     input = {
         kb_layout    = "latam",
         kb_options   = "",
+        repeat_delay = 250,   -- ms antes de empezar a repetir (default 600, se sentía lento)
+        repeat_rate  = 40,    -- repeticiones por segundo (default 25)
         follow_mouse = 1,
         sensitivity  = 0,
         touchpad = {
