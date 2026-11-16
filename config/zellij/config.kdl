@@ -23,7 +23,10 @@ ui {
 // Alt+1..4 = ir a la parada · Alt+t = nueva pestaña · Alt+w = cerrar pestaña
 // Alt+h/l = pestaña anterior/siguiente
 keybinds {
+    // Ctrl+h se lo dejamos a Neovim (moverse al explorador); modo Move ahora en Alt+m
+    unbind "Ctrl h"
     shared_except "locked" {
+        bind "Alt m" { SwitchToMode "Move"; }
         bind "Alt 1" { GoToTab 1; }
         bind "Alt 2" { GoToTab 2; }
         bind "Alt 3" { GoToTab 3; }

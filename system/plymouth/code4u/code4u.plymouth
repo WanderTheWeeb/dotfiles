@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=CODE4U
+Description=CODE4U · ruta nocturna: logo, paradas y boleto
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/code4u
+ScriptFile=/usr/share/plymouth/themes/code4u/code4u.script

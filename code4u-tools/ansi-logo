@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# CODE4U · imagen -> logo ANSI a color (para fastfetch "file-raw")
+# uso: ansi-logo <imagen> <salida> [columnas=30] [umbral=20]
+set -euo pipefail
+img=$1; out=$2; cols=${3:-30}; thr=${4:-20}
+py=$(uv tool dir)/img2art/bin/python
+tmp=$(mktemp)
+scale=$("$py" -I -c 'import cv2,sys; print(2*int(sys.argv[2])/cv2.imread(sys.argv[1]).shape[1])' "$img" "$cols")
+img2art "$img" --scale "$scale" --threshold "$thr" --with-color --quant 16 --save-raw "$tmp" >/dev/null
+"$py" -I - "$tmp" "$out" <<'PY'
+import sys,re
+t=open(sys.argv[1]).read().replace("\x1b[2J","")
+# casi negro -> azul noche tenue, para que no salgan puntos negros
+t=re.sub(r"\x1b\[38;2;(\d+);(\d+);(\d+)m", lambda m: "\x1b[38;2;42;47;94m" if max(map(int,m.groups()))<40 else m.group(0), t)
+lines=[l for l in t.split("\n") if re.sub(r"\x1b\[[\d;]*m","",l).strip(" ⠀")]
+open(sys.argv[2],"w").write("\n".join(l+"\x1b[0m" for l in lines)+"\n")
+PY
+rm -f "$tmp"; echo "listo: $out"

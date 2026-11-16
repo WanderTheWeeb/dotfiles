@@ -54,9 +54,9 @@ hl.on("workspace.active", function() hl.exec_cmd(sfx .. " ws") end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
-hl.env("XCURSOR_THEME", "capitaine-cursors-light")
+hl.env("XCURSOR_THEME", "code4u")
 hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_THEME", "capitaine-cursors-light")
+hl.env("HYPRCURSOR_THEME", "code4u")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("GTK_THEME", "adw-gtk3-dark")
@@ -180,7 +180,7 @@ hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("pkill waybar; waybar"))
 hl.bind(mainMod .. " + N",      hl.dsp.exec_cmd("swaync-client -t -sw"))   -- centro de avisos
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -d -sw"))  -- no molestar
 
--- Capturas (~/.config/code4u/shot): guardan en ~/Pictures/Capturas + portapapeles
+-- Capturas (~/.config/code4u/shot): guardan en ~/Imágenes/Capturas + portapapeles
 hl.bind("Print",                     hl.dsp.exec_cmd("~/.config/code4u/shot region"))
 hl.bind("SHIFT + Print",             hl.dsp.exec_cmd("~/.config/code4u/shot screen"))
 hl.bind("ALT + Print",               hl.dsp.exec_cmd("~/.config/code4u/shot window"))
@@ -257,4 +257,11 @@ hl.window_rule({
     name  = "vesktop-chat",
     match = { class = "^(vesktop|discord)$" },
     workspace = "3 silent",
+})
+
+-- Thunar translúcido como kitty / Vesktop (GTK3 no respeta rgba en CSS)
+hl.window_rule({
+    name    = "thunar-glass",
+    match   = { class = "^([Tt]hunar)$" },
+    opacity = "0.85 0.80",
 })

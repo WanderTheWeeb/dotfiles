@@ -3,12 +3,18 @@ gui:
   border: single
   theme:
     activeBorderColor: ["#e33a8e", bold]
-    inactiveBorderColor: ["#6b79d6"]
+    inactiveBorderColor: ["#2a2f5e"]
     searchingActiveBorderColor: ["#ff7cbd", bold]
-    optionsTextColor: ["#aab4f2"]
+    optionsTextColor: ["#6b79d6"]
     selectedLineBgColor: ["#1b1f4a"]
     inactiveViewSelectedLineBgColor: ["#12153a"]
     defaultFgColor: ["#f2ead8"]
     unstagedChangesColor: ["#d8323c"]
     cherryPickedCommitBgColor: ["#6b79d6"]
     cherryPickedCommitFgColor: ["#0d0f24"]
+    markedBaseCommitBgColor: ["#f2c76b"]
+    markedBaseCommitFgColor: ["#0d0f24"]
+git:
+  # delta con el tema CODE4U (si no está instalado, diff normal)
+  pagers:
+    - pager: sh -c 'command -v delta >/dev/null && exec delta --dark --paging=never --features code4u || exec cat'

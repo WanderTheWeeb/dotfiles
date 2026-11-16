@@ -12,7 +12,7 @@
 @define-color warn   #d8323c;
 
 * {
-  font-family: "Courier Prime", "JetBrainsMono Nerd Font", monospace;
+  font-family: "MartianMono Nerd Font Propo", monospace;
   font-size: 12px;
   border: none;
   border-radius: 0;
@@ -111,6 +111,24 @@ tooltip label { color: @fg; }
 }
 #pulseaudio:hover, #backlight:hover { color: @neon; }
 
-#custom-notif { font-family: "JetBrainsMono Nerd Font"; font-size: 15px; padding: 0 10px; color: #aab4f2; }
+#custom-notif { font-family: "MartianMono Nerd Font Propo"; font-size: 15px; padding: 0 10px; color: #aab4f2; }
 #custom-notif.notification, #custom-notif.dnd-notification { color: #f2ead8; }
 #custom-notif.dnd-none, #custom-notif.dnd-notification { color: #6b79d6; }
+
+/* ---- radio: lo que suena en la ruta (mpris) + ecualizador (cava) ---- */
+#mpris {
+  padding: 0 10px 0 12px;
+  margin-left: 6px;
+  font-size: 11px;
+  color: @fg;
+  border-left: 1.5px solid rgba(107, 121, 214, 0.35);
+}
+#mpris.paused { color: rgba(170, 180, 242, 0.6); }
+#mpris:hover { color: @neon; }
+#custom-cava {
+  padding: 0 12px 0 2px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: @accent;
+  text-shadow: 0 0 6px rgba(227, 58, 142, 0.6);
+}

@@ -1,0 +1,101 @@
+/* CODE4U · Firefox — interfaz como letrero de la terminal nocturna
+   paleta: noche #0d0f24 · panel #12153a · realce #1b1f4a · ruta #6b79d6 · crema #f2ead8 · magenta #e33a8e */
+:root {
+  --c4-bg: #0d0f24; --c4-pane: #12153a; --c4-raise: #1b1f4a; --c4-route: #6b79d6;
+  --c4-line: #6b79d659; --c4-dim: #aab4f2; --c4-fg: #f2ead8; --c4-accent: #e33a8e; --c4-neon: #ff7cbd;
+  --c4-font: "MartianMono Nerd Font", "Courier Prime", monospace;
+
+  /* variables de tema de Firefox: lo más robusto entre versiones */
+  --lwt-accent-color: var(--c4-bg) !important;
+  --lwt-text-color: var(--c4-fg) !important;
+  --toolbox-bgcolor: var(--c4-bg) !important;
+  --toolbox-textcolor: var(--c4-fg) !important;
+  --toolbar-bgcolor: var(--c4-bg) !important;
+  --toolbar-color: var(--c4-fg) !important;
+  --toolbar-field-background-color: var(--c4-pane) !important;
+  --toolbar-field-focus-background-color: var(--c4-raise) !important;
+  --toolbar-field-color: var(--c4-fg) !important;
+  --toolbar-field-focus-color: var(--c4-fg) !important;
+  --toolbar-field-border-color: #6b79d68c !important;
+  --toolbar-field-focus-border-color: var(--c4-accent) !important;
+  --urlbar-box-bgcolor: var(--c4-pane) !important;
+  --urlbar-box-focus-bgcolor: var(--c4-raise) !important;
+  --urlbar-box-hover-bgcolor: var(--c4-raise) !important;
+  --urlbar-box-text-color: var(--c4-fg) !important;
+  --urlbarView-highlight-background: var(--c4-raise) !important;
+  --urlbarView-highlight-color: var(--c4-fg) !important;
+  --arrowpanel-background: var(--c4-raise) !important;
+  --arrowpanel-color: var(--c4-fg) !important;
+  --arrowpanel-border-color: var(--c4-route) !important;
+  --arrowpanel-border-radius: 0 !important;
+  --panel-border-radius: 0 !important;
+  --tab-selected-bgcolor: var(--c4-raise) !important;
+  --tab-selected-textcolor: var(--c4-fg) !important;
+  --tab-hover-background-color: #1b1f4a99 !important;
+  --tab-border-radius: 0 !important;
+  --tab-min-height: 30px !important;
+  --sidebar-background-color: var(--c4-bg) !important;
+  --sidebar-text-color: var(--c4-fg) !important;
+  --button-hover-bgcolor: var(--c4-raise) !important;
+  --toolbarbutton-border-radius: 0 !important;
+  --toolbarbutton-icon-fill-attention: var(--c4-accent) !important;
+  --focus-outline-color: var(--c4-accent) !important;
+  --chrome-content-separator-color: var(--c4-line) !important;
+  --border-radius-small: 0 !important;
+  --border-radius-medium: 0 !important;
+  --border-radius-circle: 0 !important;
+}
+
+#navigator-toolbox, #nav-bar, #TabsToolbar, #titlebar, #PersonalToolbar, #sidebar-main, #sidebar-box {
+  background: var(--c4-bg) !important;
+  color: var(--c4-fg) !important;
+  border-color: var(--c4-line) !important;
+}
+#navigator-toolbox { border-bottom: 1.5px solid var(--c4-line) !important; }
+
+/* fuente monoespaciada en toda la interfaz */
+#navigator-toolbox *, menupopup, panel, #urlbar-input, .urlbarView, #sidebar-main {
+  font-family: var(--c4-font) !important;
+}
+.tab-label, #urlbar-input { font-size: 11px !important; letter-spacing: .3px; }
+
+/* pestañas = paradas de la ruta: cuadradas, la activa con raya magenta abajo */
+.tab-background {
+  border-radius: 0 !important;
+  margin-block: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.tabbrowser-tab[selected] .tab-background, .tabbrowser-tab[visuallyselected] .tab-background {
+  background: linear-gradient(to top, #e33a8e38, transparent 75%), var(--c4-raise) !important;
+  box-shadow: inset 0 -2px var(--c4-accent) !important;
+}
+.tabbrowser-tab:not([selected]) .tab-label { color: var(--c4-dim) !important; }
+.tabbrowser-tab[selected] .tab-label { color: var(--c4-fg) !important; text-shadow: 0 0 6px #e33a8e88; }
+.tabbrowser-tab[soundplaying] .tab-icon-overlay { fill: var(--c4-accent) !important; }
+.tab-close-button { border-radius: 0 !important; }
+
+/* barra de direcciones como boleto */
+#urlbar-background {
+  background: var(--c4-pane) !important;
+  border: 1.5px solid #6b79d68c !important;
+  border-radius: 0 !important;
+}
+#urlbar[focused] #urlbar-background, #urlbar[open] #urlbar-background {
+  border-color: var(--c4-accent) !important;
+  box-shadow: 0 0 8px #e33a8e55 !important;
+}
+#urlbar-input::placeholder { color: var(--c4-route) !important; opacity: 1 !important; }
+.urlbarView-row[selected] { box-shadow: inset 2px 0 var(--c4-accent) !important; }
+
+/* botones y menús sin redondeo */
+toolbarbutton, .toolbarbutton-1 > .toolbarbutton-icon, .toolbarbutton-1 > .toolbarbutton-badge-stack,
+menupopup, menuitem, panel, panelview, .panel-subview-body { border-radius: 0 !important; }
+.toolbarbutton-1:hover > .toolbarbutton-icon, .toolbarbutton-1:hover > .toolbarbutton-badge-stack {
+  background: var(--c4-raise) !important;
+}
+menupopup { --panel-background: var(--c4-raise) !important; --panel-color: var(--c4-fg) !important; }
+menuitem[_moz-menuactive], menu[_moz-menuactive] { background: #5a1f45 !important; color: var(--c4-fg) !important; }
+
+/* barra de progreso de carga en magenta */
+.tab-throbber[busy]::before { fill: var(--c4-accent) !important; }

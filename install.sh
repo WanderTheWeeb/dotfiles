@@ -53,7 +53,7 @@ for d in "$DOTS"/config/*; do
 done
 link "$DOTS/home/.zshrc" "$HOME/.zshrc"
 
-say "Fuentes (Anton, Courier Prime)"
+say "Fuentes (Anton, Courier Prime, Martian Mono)"
 mkdir -p "$HOME/.local/share/fonts/code4u"
 cp -u "$DOTS"/fonts/*.ttf "$HOME/.local/share/fonts/code4u/"
 fc-cache -f >/dev/null
@@ -64,18 +64,20 @@ mkdir -p "$HOME/.config/zellij/plugins"
   curl -sSfL -o "$HOME/.config/zellij/plugins/zjstatus.wasm" \
        https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm
 
-say "Tema GTK, íconos y cursor"
+say "Tema GTK, íconos y cursor (code4u = capitaine recoloreado)"
+python3 "$DOTS/code4u-tools/make-cursor.py" >/dev/null
+python3 "$DOTS/code4u-tools/make-icons.py" >/dev/null
 if command -v gsettings >/dev/null; then
   gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark
   gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-  gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark
-  gsettings set org.gnome.desktop.interface cursor-theme capitaine-cursors-light
+  gsettings set org.gnome.desktop.interface icon-theme Papirus-code4u
+  gsettings set org.gnome.desktop.interface cursor-theme code4u
   gsettings set org.gnome.desktop.interface cursor-size 24
   gsettings set org.gnome.desktop.interface font-name 'Noto Sans 10'
-  gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 10'
+  gsettings set org.gnome.desktop.interface monospace-font-name 'MartianMono Nerd Font 10'
 fi
 mkdir -p "$HOME/.icons/default"
-printf '[Icon Theme]\nInherits=capitaine-cursors-light\n' > "$HOME/.icons/default/index.theme"
+printf '[Icon Theme]\nInherits=code4u\n' > "$HOME/.icons/default/index.theme"
 
 # el fondo animado viene incluido; si falta, se renderiza (≈3 min)
 if [ ! -f "$HOME/.config/hypr/wall/code4u-loop.mp4" ] && command -v uv >/dev/null; then

@@ -1,11 +1,11 @@
 # CODE4U · login. Se copia a /etc/greetd/config.toml
 # Al prender: entra solo a Hyprland, que arranca bloqueado con hyprlock (boarding pass).
-# Si cierras sesión, aparece tuigreet como respaldo.
+# Si cierras sesión, aparece tuigreet como respaldo (con /etc/issue = logo CODE4U, ver system/issue).
 [terminal]
 vt = 1
 
 [default_session]
-command = "tuigreet --time --time-format '%H:%M · %A %d %B' --remember --remember-user-session --asterisks --greeting 'C O D E 4 U   ·   B O A R D I N G   ·   A N D É N  4' --theme 'border=magenta;title=magenta;greet=lightblue;text=white;prompt=magenta;time=lightblue;action=blue;button=magenta;container=black;input=white' --sessions /usr/share/wayland-sessions --cmd start-hyprland"
+command = "tuigreet --time --time-format '%H:%M · %A %d %B' --remember --remember-user-session --asterisks --issue --width 72 --theme 'border=magenta;title=magenta;greet=lightblue;text=white;prompt=magenta;time=lightblue;action=blue;button=magenta;container=black;input=white' --sessions /usr/share/wayland-sessions --cmd start-hyprland"
 user = "greeter"
 
 [initial_session]

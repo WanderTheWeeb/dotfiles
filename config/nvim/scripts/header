@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# CODE4U · imagen -> header del dashboard de LazyVim usando img2art
+# uso: header <imagen> [columnas=60] [colores=16] [umbral=-1 (otsu)]
+set -euo pipefail
+img=${1:?uso: header <imagen> [columnas] [colores] [umbral]}
+cols=${2:-60}; quant=${3:-16}; thr=${4:--1}
+dir=$(dirname "$(readlink -f "$0")")/..
+py=$(uv tool dir)/img2art/bin/python
+# braille = 2 px por columna -> escala para que mida $cols columnas
+scale=$("$py" -I -c 'import cv2,sys; print(2*int(sys.argv[2])/cv2.imread(sys.argv[1]).shape[1])' "$img" "$cols")
+cp "$img" "$dir/art/source.${img##*.}"
+img2art "$img" --scale "$scale" --threshold "$thr" --alpha --quant "$quant" --save-raw "$dir/lua/code4u/art.lua" >/dev/null
+echo "listo: $(grep -c '^\[\[' "$dir/lua/code4u/art.lua") líneas -> lua/code4u/art.lua (abre nvim)"

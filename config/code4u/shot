@@ -4,9 +4,9 @@
 #   shot window   → ventana activa
 #   shot screen   → pantalla completa
 #   shot edit     → seleccionas un área y abre directo el editor (satty)
-# Siempre: guarda en ~/Pictures/Capturas, copia al portapapeles, suena y avisa.
+# Siempre: guarda en ~/Imágenes/Capturas, copia al portapapeles, suena y avisa.
 set -u
-DIR="$HOME/Pictures/Capturas"; mkdir -p "$DIR"
+DIR="$(xdg-user-dir PICTURES)/Capturas"; mkdir -p "$DIR"
 FILE="$DIR/CODE4U_$(date +%F_%H%M%S).png"
 SFX="$HOME/.config/code4u/sfx/play"
 slurp_c4(){ slurp -b 0d0f2488 -c e33a8eff -s e33a8e1a -w 2 -B 0d0f2400 "$@"; }

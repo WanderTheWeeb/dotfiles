@@ -1,0 +1,31 @@
+/* CODE4U · páginas internas de Firefox (nueva pestaña, about:*) */
+@-moz-document url("about:newtab"), url("about:home"), url("about:blank"), url("about:privatebrowsing") {
+  :root, body {
+    --newtab-background-color: #0d0f24 !important;
+    --newtab-background-color-secondary: #12153a !important;
+    --newtab-text-primary-color: #f2ead8 !important;
+    --newtab-text-secondary-color: #aab4f2 !important;
+    --newtab-primary-action-background: #e33a8e !important;
+    --newtab-element-hover-color: #1b1f4a !important;
+    --newtab-border-radius: 0 !important;
+    --border-radius-medium: 0 !important;
+    --border-radius-large: 0 !important;
+    background-color: #0d0f24 !important;
+    color: #f2ead8 !important;
+    font-family: "MartianMono Nerd Font", monospace !important;
+  }
+  .search-handoff-button, .search-wrapper input {
+    background-color: #12153a !important;
+    border: 1.5px solid #6b79d68c !important;
+    border-radius: 0 !important;
+    color: #f2ead8 !important;
+  }
+  .search-handoff-button:focus, .search-wrapper input:focus { border-color: #e33a8e !important; }
+  .top-site-outer .tile, .top-site-outer .top-site-icon { border-radius: 0 !important; background-color: #12153a !important; }
+  .top-site-outer .title { color: #aab4f2 !important; }
+}
+@-moz-document url-prefix("about:") {
+  :root { --in-content-page-background: #0d0f24 !important; --in-content-box-background: #12153a !important;
+          --in-content-page-color: #f2ead8 !important; --in-content-primary-button-background: #e33a8e !important;
+          --in-content-primary-button-background-hover: #ff7cbd !important; --in-content-border-radius: 0 !important; }
+}

@@ -12,7 +12,7 @@
 @define-color bg     #0d0f24;
 @define-color raise  #1b1f4a;
 
-* { font-family: "Courier Prime", "JetBrainsMono Nerd Font", monospace; }
+* { font-family: "MartianMono Nerd Font", monospace; }
 
 notificationwindow, blankwindow, .floating-notifications { background: transparent; }
 .blank-window { background: transparent; }

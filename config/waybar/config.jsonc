@@ -4,7 +4,7 @@
   "position": "top",
   "height": 38,
   "spacing": 0,
-  "modules-left": ["custom/brand", "hyprland/workspaces"],
+  "modules-left": ["custom/brand", "hyprland/workspaces", "mpris", "custom/cava"],
   "modules-center": ["custom/dep"],
   "modules-right": ["tray", "network", "group/audio", "group/light", "cpu", "memory", "battery", "power-profiles-daemon", "custom/notif", "custom/power"],
 
@@ -27,6 +27,30 @@
       "6": "●  06", "7": "●  07", "8": "●  08", "9": "●  09", "10": "●  10",
       "magic": "◆  SPECIAL"
     }
+  },
+
+  "mpris": {
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>RADIO {player_icon}</span>\n{dynamic}",
+    "format-paused": "<span size='7pt' foreground='#6b79d6' letter_spacing='2000'>RADIO {status_icon}</span>\n{dynamic}",
+    "format-stopped": "",
+    "dynamic-order": ["artist", "title"],
+    "dynamic-separator": " – ",
+    "dynamic-len": 30,
+    "player-icons": { "default": "▶", "spotify": "󰓇", "firefox": "󰈹", "mpv": "󰐹", "chromium": "" },
+    "status-icons": { "paused": "⏸" },
+    "tooltip-format": "{player} · {status}\n{artist}\n{title}\n{album}\nclic: play/pausa · rueda: siguiente/anterior",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "on-click-right": "playerctl next"
+  },
+
+  "custom/cava": {
+    "exec": "~/.config/waybar/scripts/cava.sh 12",
+    "return-type": "json",
+    "restart-interval": 30,
+    "escape": false,
+    "tooltip": false
   },
 
   "custom/dep": {

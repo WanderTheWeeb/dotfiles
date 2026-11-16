@@ -1,0 +1,6 @@
+# CODE4U · reglas de markdownlint (las ruidosas apagadas)
+config:
+  MD013: false   # largo de línea
+  MD033: false   # HTML dentro de md
+  MD041: false   # que empiece con H1
+  MD024: { siblings_only: true }  # títulos repetidos sólo si son hermanos

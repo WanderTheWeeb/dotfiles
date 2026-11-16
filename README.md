@@ -32,7 +32,7 @@
 |---|---|---|---|---|
 | `#0d0f24` noche | `#1b1f4a` andén | `#6b79d6` ruta | `#e33a8e` neón | `#f2ead8` boleto |
 
-Fuentes: **Anton** (títulos), **Courier Prime** (texto), **JetBrainsMono Nerd Font** (código e íconos).
+Fuentes: **Anton** (títulos), **MartianMono Nerd Font** (texto, código e íconos), **Courier Prime** (detalles de boleto).
 
 ## Instalar
 

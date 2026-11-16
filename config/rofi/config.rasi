@@ -4,9 +4,9 @@ configuration {
   drun-display-format: "{name}";
   kb-mode-next: "Control+Tab";
   kb-mode-previous: "Control+ISO_Left_Tab";
-  font: "Courier Prime 12";
+  font: "MartianMono Nerd Font 11";
   show-icons: true;
-  icon-theme: "Adwaita";
+  icon-theme: "Papirus-code4u";
   display-filebrowser: "ARCHIVOS";
   display-drun: "SALIDAS";
   display-window: "VENTANAS";
@@ -72,5 +72,5 @@ message { border: 1.5px; border-color: #6b79d659; padding: 6px 10px; }
 textbox { text-color: @dim; }
 
 mode-switcher { spacing: 0; }
-button { padding: 5px; background-color: transparent; text-color: @dim; border: 0 0 2px 0; border-color: transparent; font: "Courier Prime 9"; }
+button { padding: 5px; background-color: transparent; text-color: @dim; border: 0 0 2px 0; border-color: transparent; font: "MartianMono Nerd Font 8"; }
 button selected { background-color: #e33a8e24; text-color: @fg; border-color: @accent; }

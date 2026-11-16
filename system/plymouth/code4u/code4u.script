@@ -1,0 +1,131 @@
+# CODE4U · plymouth (lenguaje script de plymouth, no es JS)
+Window.SetBackgroundTopColor(0.051, 0.059, 0.141);
+Window.SetBackgroundBottomColor(0.051, 0.059, 0.141);
+
+W = Window.GetWidth();
+H = Window.GetHeight();
+X0 = Window.GetX();
+Y0 = Window.GetY();
+
+# ── logo ──
+logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.x = X0 + W / 2 - logo.image.GetWidth() / 2;
+logo.y = Y0 + H * 0.42 - logo.image.GetHeight() / 2;
+logo.sprite.SetPosition(logo.x, logo.y, 10);
+
+# ── ruta: línea con paradas ──
+route.len = 400;
+route.x = X0 + W / 2 - route.len / 2;
+route.y = logo.y + logo.image.GetHeight() + 60;
+STOPS = 6;
+
+line_off = Image("line.png").Scale(route.len, 3);
+line.base = Sprite(line_off);
+line.base.SetPosition(route.x, route.y - 1, 11);
+line_on_img = Image("line-on.png");
+line.fill = Sprite();
+line.fill.SetPosition(route.x, route.y - 1, 12);
+
+stop_off = Image("stop-off.png");
+stop_on = Image("stop-on.png");
+for (i = 0; i < STOPS; i++) {
+  stop[i] = Sprite(stop_off);
+  stop[i].SetPosition(route.x + i * route.len / (STOPS - 1) - 7, route.y - 7, 13);
+}
+bus.image = Image("bus.png");
+bus.sprite = Sprite(bus.image);
+bus.sprite.SetPosition(route.x - 9, route.y - 9, 14);
+
+salida.image = Image("salida.png");
+salida.sprite = Sprite(salida.image);
+salida.sprite.SetPosition(X0 + W / 2 - salida.image.GetWidth() / 2, route.y + 30, 11);
+
+fun progress_callback(duration, progress) {
+  px = Math.Int(route.len * progress);
+  if (px < 1) px = 1;
+  line.fill.SetImage(line_on_img.Scale(px, 3));
+  for (i = 0; i < STOPS; i++) {
+    if (i * route.len / (STOPS - 1) <= px)
+      stop[i].SetImage(stop_on);
+  }
+  bus.sprite.SetPosition(route.x + px - 9, route.y - 9, 14);
+}
+Plymouth.SetBootProgressFunction(progress_callback);
+
+# ── boleto: contraseña (LUKS) y preguntas ──
+box.image = Image("box.png");
+prompt.image = Image("prompt.png");
+bullet.image = Image("bullet.png");
+dialog.y = salida.sprite.GetY() + 50;
+
+fun dialog_setup() {
+  global.dialog.box = Sprite(box.image);
+  global.dialog.box.SetPosition(X0 + W / 2 - box.image.GetWidth() / 2, dialog.y + 26, 20);
+  global.dialog.label = Sprite();
+  global.dialog.label.SetPosition(X0 + W / 2 - box.image.GetWidth() / 2, dialog.y, 21);
+  global.dialog.active = 1;
+}
+
+fun dialog_hide() {
+  global.dialog.box = NULL;
+  global.dialog.label = NULL;
+  for (i = 0; i < global.bullets_n; i++) global.bullets[i] = NULL;
+  global.bullets_n = 0;
+  global.dialog.active = 0;
+}
+bullets_n = 0;
+dialog.active = 0;
+
+fun set_bullets(n) {
+  for (i = 0; i < global.bullets_n; i++) global.bullets[i] = NULL;
+  cap = 24;
+  if (n > cap) n = cap;
+  bx = X0 + W / 2 - box.image.GetWidth() / 2 + 16;
+  for (i = 0; i < n; i++) {
+    global.bullets[i] = Sprite(bullet.image);
+    global.bullets[i].SetPosition(bx + i * 13, dialog.y + 26 + 17, 22);
+  }
+  global.bullets_n = n;
+}
+
+fun display_password_callback(prompt_text, bullets) {
+  if (!global.dialog.active) dialog_setup();
+  if (prompt_text == "")
+    global.dialog.label.SetImage(prompt.image);
+  else
+    global.dialog.label.SetImage(Image.Text(prompt_text, 0.949, 0.918, 0.847));
+  set_bullets(bullets);
+}
+
+fun display_question_callback(prompt_text, entry) {
+  if (!global.dialog.active) dialog_setup();
+  global.dialog.label.SetImage(Image.Text(prompt_text, 0.949, 0.918, 0.847));
+  for (i = 0; i < global.bullets_n; i++) global.bullets[i] = NULL;
+  global.bullets_n = 0;
+  global.dialog.entry = Sprite(Image.Text(entry, 0.949, 0.918, 0.847));
+  global.dialog.entry.SetPosition(X0 + W / 2 - box.image.GetWidth() / 2 + 16, dialog.y + 26 + 12, 22);
+}
+
+fun display_normal_callback() {
+  if (global.dialog.active) dialog_hide();
+  global.dialog.entry = NULL;
+}
+
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+Plymouth.SetDisplayQuestionFunction(display_question_callback);
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
+
+# ── mensajes ──
+msg.sprite = Sprite();
+msg.sprite.SetPosition(X0 + 24, Y0 + H - 40, 30);
+fun message_callback(text) {
+  msg.sprite.SetImage(Image.Text(text, 0.667, 0.706, 0.949));
+}
+Plymouth.SetMessageFunction(message_callback);
+
+# ── apagado / reinicio: ruta llena ──
+fun quit_callback() {
+  progress_callback(0, 1);
+}
+Plymouth.SetQuitFunction(quit_callback);

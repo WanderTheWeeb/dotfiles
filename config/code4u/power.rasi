@@ -1,5 +1,5 @@
 /* CODE4U · menú de apagado (botón ⏻ de waybar) */
-configuration { font: "Courier Prime 11"; show-icons: false; kb-cancel: "Escape,Super_L"; }
+configuration { font: "MartianMono Nerd Font 10"; show-icons: false; kb-cancel: "Escape,Super_L"; }
 
 * {
   bg: #0d0f24f2; pane: #12153a; raise: #1b1f4a;
@@ -17,6 +17,6 @@ inputbar { children: [ prompt ]; padding: 0 0 8px 0; border: 0 0 1px dash 0; bor
 prompt { font: "Anton 14"; text-color: @accent; }
 listview { lines: 5; fixed-height: false; spacing: 4px; scrollbar: false; }
 element { padding: 9px 12px; border: 0 0 0 3px; border-color: transparent; }
-element-text { font: "JetBrainsMono Nerd Font 11"; text-color: @dim; background-color: transparent; }
+element-text { font: "MartianMono Nerd Font 10"; text-color: @dim; background-color: transparent; }
 element selected { background-color: #e33a8e33; border-color: @accent; }
 element selected element-text { text-color: @fg; }
