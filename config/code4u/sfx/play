@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# CODE4U · sfx  — uso: play <nombre>   (silencio: touch ~/.config/code4u/sfx/.mute)
+D="$HOME/.config/code4u/sfx"
+[ -e "$D/.mute" ] && exit 0
+[ -f "$D/$1.wav" ] || exit 0
+exec pw-play --volume "${SFX_VOL:-0.6}" "$D/$1.wav" >/dev/null 2>&1

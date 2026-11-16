@@ -1,0 +1,21 @@
+# CODE4U · satty (editor de capturas)
+[general]
+fullscreen = false
+early-exit = true
+initial-tool = "arrow"
+copy-command = "wl-copy"
+annotation-size-factor = 1.4
+output-filename = "~/Pictures/Capturas/CODE4U_%Y-%m-%d_%H%M%S-edit.png"
+save-after-copy = true
+default-hide-toolbars = false
+primary-highlighter = "block"
+corner-roundness = 0
+actions-on-enter = ["save-to-clipboard", "save-to-file", "exit"]
+actions-on-escape = ["exit"]
+
+[font]
+family = "Courier Prime"
+style = "Bold"
+
+[color-palette]
+palette = ["#e33a8e", "#ff7cbd", "#6b79d6", "#7fd6a8", "#f2c76b", "#d8323c", "#f2ead8", "#0d0f24"]

@@ -1,0 +1,40 @@
+// CODE4U · zellij
+theme "code4u"
+default_shell "zsh"
+default_layout "code4u"
+session_name "code4u"
+attach_to_session true
+pane_frames false
+simplified_ui true
+mouse_mode true
+copy_command "wl-copy"
+copy_on_select true
+scroll_buffer_size 20000
+show_startup_tips false
+show_release_notes false
+session_serialization true
+ui {
+    pane_frames {
+        rounded_corners false
+        hide_session_name false
+    }
+}
+
+// Alt+1..4 = ir a la parada · Alt+t = nueva pestaña · Alt+w = cerrar pestaña
+// Alt+h/l = pestaña anterior/siguiente
+keybinds {
+    shared_except "locked" {
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt t" { NewTab; }
+        bind "Alt w" { CloseTab; }
+        // tabs: Alt+h ← / Alt+l →  (ya no abren panes)
+        bind "Alt h" { GoToPreviousTab; }
+        bind "Alt l" { GoToNextTab; }
+        // panes: Alt+n a la derecha · Alt+| (tecla a la izquierda del 1) abajo
+        bind "Alt n" { NewPane "Right"; }
+        bind "Alt |" { NewPane "Down"; }
+    }
+}

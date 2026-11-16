@@ -1,0 +1,187 @@
+/* ╔═══════════════════════════════════════════════╗
+   ║  CODE4U · swaync — cada aviso es un boleto     ║
+   ╚═══════════════════════════════════════════════╝ */
+@define-color paper  #f2ead8;
+@define-color paper2 #e9dfc8;
+@define-color ink    #0d0f24;
+@define-color ink2   #1b1f4a;
+@define-color line   #6b79d6;
+@define-color accent #e33a8e;
+@define-color neon   #ff7cbd;
+@define-color warn   #d8323c;
+@define-color bg     #0d0f24;
+@define-color raise  #1b1f4a;
+
+* { font-family: "Courier Prime", "JetBrainsMono Nerd Font", monospace; }
+
+notificationwindow, blankwindow, .floating-notifications { background: transparent; }
+.blank-window { background: transparent; }
+
+/* ---------- el boleto ---------- */
+@keyframes drive  { from { background-position: -6% 100%, center bottom, left center, right center; }
+                    to   { background-position: 104% 100%, center bottom, left center, right center; } }
+@keyframes alarm  { 0%, 100% { border-top-color: @warn; } 50% { border-top-color: alpha(@warn, .25); } }
+@keyframes issue  { from { opacity: 0; margin-top: -18px; } to { opacity: 1; margin-top: 0; } }
+
+.notification-row { outline: none; background: transparent; }
+.notification-row:focus .notification { box-shadow: 0 0 0 2px @accent; }
+.notification-row .notification-background { padding: 6px 10px; background: transparent; }
+
+.notification-row .notification-background .notification {
+  border-radius: 3px;
+  border: none;
+  border-top: 4px solid @accent;
+  padding: 0;
+  color: @ink;
+  background-color: transparent;
+  /* capas: camión · ruta · mitad izq. con muesca · mitad der. con muesca */
+  background-image:
+    url("bus.svg"),
+    url("route.svg"),
+    radial-gradient(circle at 0% 55%, transparent 9px, @paper 10px),
+    radial-gradient(circle at 100% 55%, transparent 9px, @paper 10px);
+  background-size: 24px 30px, 100% auto, 50.5% 100%, 50.5% 100%;
+  background-repeat: no-repeat;
+  background-position: -6% 100%, center bottom, left center, right center;
+  box-shadow: 0 6px 18px alpha(#000, .45), 0 0 14px alpha(@accent, .18);
+  animation: drive 6s cubic-bezier(.45,.05,.55,.95) infinite alternate, issue 260ms cubic-bezier(.2,.8,.25,1);
+  transition: box-shadow 200ms;
+}
+.notification-row .notification-background .notification:hover {
+  box-shadow: 0 8px 22px alpha(#000, .5), 0 0 22px alpha(@accent, .45);
+}
+
+/* urgencias */
+.notification-row .notification-background .notification.low { border-top-color: alpha(@line, .7); animation: issue 260ms cubic-bezier(.2,.8,.25,1); }
+.notification-row .notification-background .notification.critical {
+  border-top-color: @warn;
+  background-image:
+    url("stamp.svg"),
+    url("bus.svg"),
+    url("route.svg"),
+    radial-gradient(circle at 0% 55%, transparent 9px, @paper 10px),
+    radial-gradient(circle at 100% 55%, transparent 9px, @paper 10px);
+  background-size: 110px 44px, 24px 30px, 100% auto, 50.5% 100%, 50.5% 100%;
+  background-position: 74% 4px, 3% 100%, center bottom, left center, right center;
+  box-shadow: 0 6px 18px alpha(#000, .45), 0 0 18px alpha(@warn, .4);
+  animation: alarm 1.1s steps(2) infinite, issue 260ms cubic-bezier(.2,.8,.25,1);
+}
+
+.notification-row .notification-background .notification .notification-default-action {
+  padding: 14px 16px 38px 18px;
+  margin: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: @ink;
+  border: none;
+  box-shadow: none;
+}
+.notification-row .notification-background .notification .notification-default-action:hover { background: alpha(@accent, .06); }
+
+/* talón: imagen/ícono separado por línea perforada */
+.notification-row .notification-background .notification .notification-default-action .notification-content .image {
+  -gtk-icon-size: 48px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+.notification-row .notification-background .notification .notification-default-action .notification-content .app-icon {
+  -gtk-icon-size: 16px; margin: 4px; background: transparent;
+}
+
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box label { color: @ink; }
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .summary {
+  font-family: "Anton", sans-serif;
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: @ink;
+}
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .time {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: alpha(@ink2, .6);
+  margin-right: 26px;
+}
+.notification-row .notification-background .notification .notification-default-action .notification-content .text-box .body {
+  font-size: 12px;
+  color: alpha(@ink2, .85);
+  margin-top: 4px;
+}
+.notification-row .notification-background .notification .notification-default-action .notification-content .body-image {
+  border-radius: 2px; margin-top: 8px; border: 2px solid alpha(@ink2, .2);
+}
+
+/* línea perforada del talón: va en el overlay que envuelve la imagen, no en .image
+   (swaync escala la imagen al tamaño natural del widget, márgenes incluidos, y la deforma) */
+.notification-row .notification-background .notification .notification-default-action .notification-content overlay {
+  margin-right: 14px;
+  padding-right: 16px;
+  border-right: 2px dashed alpha(@ink2, .35);
+}
+
+/* barra de progreso (volumen, brillo) */
+.notification-row .notification-background .notification .notification-default-action .notification-content progressbar { margin-top: 10px; min-height: 6px; }
+progressbar trough { background: alpha(@line, .3); border-radius: 0; min-height: 6px; }
+progressbar progress { background: linear-gradient(to right, @accent, @neon); border-radius: 0; min-height: 6px; }
+
+/* acciones = botones de taquilla */
+.notification-row .notification-background .notification .notification-alt-actions { margin: -20px 16px 40px; background: transparent; }
+.notification-row .notification-background .notification .notification-action { background: transparent; border: none; }
+.notification-row .notification-background .notification .notification-action > button {
+  background: transparent; color: @ink; border: 1.5px solid alpha(@ink2, .4); border-radius: 2px;
+  font-size: 10px; letter-spacing: 2px; padding: 4px 10px; box-shadow: none; text-shadow: none;
+}
+.notification-row .notification-background .notification .notification-action > button:hover { background: @accent; color: @paper; border-color: @accent; }
+
+.close-button {
+  background: @ink; color: @paper; border-radius: 0; min-width: 20px; min-height: 20px;
+  margin: 10px 12px; padding: 0; border: none; box-shadow: none;
+}
+.close-button:hover { background: @accent; }
+
+/* grupos */
+.notification-group { background: transparent; }
+.notification-group .notification-group-headers .notification-group-header { color: #aab4f2; font-size: 10px; letter-spacing: 2px; }
+.notification-group .notification-group-headers .notification-group-icon { color: @accent; }
+.notification-group .notification-group-buttons button { background: @raise; color: #f2ead8; border-radius: 0; border: 1.5px solid alpha(@line, .4); }
+
+/* ---------- centro de avisos (SUPER+N) ---------- */
+.control-center {
+  background: alpha(@bg, .96);
+  border: 2px solid @line;
+  border-radius: 0;
+  margin: 10px;
+  padding: 6px 4px;
+  color: #f2ead8;
+}
+.control-center .control-center-list { background: transparent; }
+.control-center .control-center-list-placeholder { color: alpha(#aab4f2, .5); }
+.control-center .control-center-list-placeholder label { font-family: "Anton", sans-serif; font-size: 26px; letter-spacing: 5px; }
+
+.widget { margin: 6px 12px; }
+.widget-title > label { font-family: "Anton", sans-serif; font-size: 22px; letter-spacing: 3px; color: #f2ead8; }
+.widget-title > button, .widget-buttons-grid flowboxchild > button {
+  background: transparent; color: #aab4f2; border: 1.5px solid alpha(@line, .4); border-radius: 2px;
+  font-size: 10px; letter-spacing: 2px; padding: 4px 12px; box-shadow: none;
+}
+.widget-title > button:hover { border-color: @accent; color: #f2ead8; }
+.widget-dnd label { color: #aab4f2; font-size: 10px; letter-spacing: 2px; }
+.widget-dnd switch { background: alpha(@line, .3); border-radius: 0; border: none; }
+.widget-dnd switch:checked { background: @accent; }
+.widget-dnd switch slider { background: #f2ead8; border-radius: 0; }
+.widget-label > label { color: #aab4f2; font-size: 10px; letter-spacing: 3px; }
+
+.widget-slider label, .widget-volume label, .widget-backlight label { color: #aab4f2; font-size: 10px; letter-spacing: 2px; }
+.widget-volume, .widget-backlight { background: #12153a; border: 1.5px solid alpha(@line, .35); padding: 6px 10px; }
+scale trough { background: alpha(@line, .3); border-radius: 0; min-height: 4px; }
+scale highlight { background: linear-gradient(to right, @accent, @neon); border-radius: 0; }
+scale slider { background: #f2ead8; border-radius: 0; min-width: 8px; min-height: 14px; box-shadow: 0 0 6px @accent; }
+
+.widget-mpris .widget-mpris-player { background: #12153a; border: 1.5px solid alpha(@line, .35); border-radius: 0; padding: 10px; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title { font-family: "Anton", sans-serif; font-size: 16px; letter-spacing: 2px; color: #f2ead8; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle { color: #aab4f2; font-size: 11px; }
+.widget-mpris .widget-mpris-player .mpris-overlay button { color: #f2ead8; background: transparent; border-radius: 0; }
+.widget-mpris .widget-mpris-player .mpris-overlay button:hover { background: @accent; }
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art { border-radius: 0; }

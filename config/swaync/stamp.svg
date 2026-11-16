@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="44" viewBox="0 0 110 44">
+  <g transform="rotate(-9 55 22)" fill="none" stroke="#d8323c" stroke-width="2.5" opacity=".75">
+    <rect x="8" y="9" width="94" height="26" rx="2"/>
+    <text x="55" y="28" text-anchor="middle" font-family="Anton" font-size="16" letter-spacing="3" fill="#d8323c" stroke="none">URGENTE</text>
+  </g>
+</svg>

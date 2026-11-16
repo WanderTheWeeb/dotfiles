@@ -1,0 +1,45 @@
+# CODE4U · starship
+add_newline = true
+format = """$username[@](#aab4f2)$hostname $directory$git_branch$git_status$nodejs$python$rust$cmd_duration
+$character"""
+
+[username]
+show_always = true
+format = "[$user]($style)"
+style_user = "bold #7fd6a8"
+style_root = "bold #d8323c"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style)"
+style = "#6b79d6"
+
+[directory]
+style = "#f2ead8"
+format = "[ $path]($style)[$read_only]($read_only_style) "
+truncation_length = 4
+truncation_symbol = "…/"
+
+[git_branch]
+format = "[· ](#6b79d6)[ $branch]($style) "
+style = "#ff7cbd"
+
+[git_status]
+style = "#f2c76b"
+format = "([$all_status$ahead_behind]($style) )"
+
+[cmd_duration]
+min_time = 2000
+format = "[· ⏱ $duration](#aab4f2)"
+
+[character]
+success_symbol = "[❯](bold #e33a8e)"
+error_symbol = "[❯](bold #d8323c)"
+vimcmd_symbol = "[❮](bold #6bc9d6)"
+
+[nodejs]
+format = "[· $symbol$version](#7fd6a8) "
+[python]
+format = "[· $symbol$version](#f2c76b) "
+[rust]
+format = "[· $symbol$version](#d8323c) "

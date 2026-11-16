@@ -1,0 +1,134 @@
+// CODE4U · waybar = letrero de la terminal
+{
+  "layer": "top",
+  "position": "top",
+  "height": 38,
+  "spacing": 0,
+  "modules-left": ["custom/brand", "hyprland/workspaces"],
+  "modules-center": ["custom/dep"],
+  "modules-right": ["tray", "network", "group/audio", "group/light", "cpu", "memory", "battery", "power-profiles-daemon", "custom/notif", "custom/power"],
+
+  "custom/brand": {
+    "format": "CODE4U",
+    "tooltip": false,
+    "on-click": "fuzzel"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "persistent-workspaces": { "*": 5 },
+    "format-icons": {
+      "1": "●  01 ORIGIN",
+      "2": "●  02 WEB",
+      "3": "●  03 CHAT",
+      "4": "●  04 MEDIA",
+      "5": "●  05 2016",
+      "6": "●  06", "7": "●  07", "8": "●  08", "9": "●  09", "10": "●  10",
+      "magic": "◆  SPECIAL"
+    }
+  },
+
+  "custom/dep": {
+    "exec": "~/.config/waybar/scripts/dep.sh",
+    "return-type": "json",
+    "interval": 10,
+    "on-click": "gnome-calendar || true"
+  },
+
+  "network": {
+    "format-wifi": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>NET</span>\n{icon}",
+    "format-icons": ["▮▯▯▯", "▮▮▯▯", "▮▮▮▯", "▮▮▮▮"],
+    "format-ethernet": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>NET</span>\n{ifname}",
+    "format-disconnected": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>NET</span>\nSIN SEÑAL",
+    "tooltip-format": "{essid} · {signalStrength}%\n{ifname} · {ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+    "justify": "right",
+    "on-click": "kitty -e nmtui"
+  },
+
+  "group/audio": {
+    "orientation": "horizontal",
+    "drawer": { "transition-duration": 300, "children-class": "drawer-child", "transition-left-to-right": false },
+    "modules": ["pulseaudio", "pulseaudio/slider"]
+  },
+  "pulseaudio": {
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>VOL</span>\n{volume}%",
+    "format-muted": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>VOL</span>\nMUTE",
+    "justify": "right",
+    "scroll-step": 2,
+    "max-volume": 100,
+    "tooltip-format": "{desc} · {volume}%\nclick: mute · der: mezclador · rueda: ±2%",
+    "on-click": "~/.config/code4u/osd vol mute",
+    "on-click-right": "pavucontrol",
+    "on-click-middle": "~/.config/code4u/osd mic mute"
+  },
+  "pulseaudio/slider": { "min": 0, "max": 100, "orientation": "horizontal" },
+
+  "group/light": {
+    "orientation": "horizontal",
+    "drawer": { "transition-duration": 300, "children-class": "drawer-child", "transition-left-to-right": false },
+    "modules": ["backlight", "backlight/slider"]
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>LUZ</span>\n{percent}%",
+    "justify": "right",
+    "on-scroll-up": "brightnessctl -q set 2%+",
+    "on-scroll-down": "brightnessctl -q -n2 set 2%-"
+  },
+  "backlight/slider": { "min": 2, "max": 100, "orientation": "horizontal", "device": "intel_backlight" },
+
+  "cpu": {
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>CPU</span>\n{usage}%",
+    "justify": "right",
+    "interval": 3,
+    "on-click": "kitty -e btop"
+  },
+
+  "memory": {
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>MEM</span>\n{used:0.1f}G",
+    "justify": "right",
+    "interval": 5
+  },
+
+  "battery": {
+    "states": { "warning": 30, "critical": 15 },
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>FUEL</span>\n{capacity}%",
+    "format-charging": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>FUEL</span>\n{capacity}% ▴",
+    "format-discharging": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>FUEL</span>\n{capacity}% ▸",
+    "justify": "right",
+    "tooltip-format": "{timeTo}"
+  },
+
+  "power-profiles-daemon": {
+    "format": "<span size='7pt' foreground='#aab4f2' letter_spacing='2000'>MODO</span>\n{icon}",
+    "format-icons": { "default": "BAL", "performance": "MAX", "balanced": "BAL", "power-saver": "ECO" },
+    "tooltip-format": "Perfil: {profile} · clic para cambiar",
+    "justify": "right"
+  },
+
+  "custom/notif": {
+    "exec": "swaync-client -swb",
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "format": "{icon}",
+    "format-icons": {
+      "none": "󰂚", "notification": "󰂚<span foreground='#e33a8e'><sup>●</sup></span>",
+      "dnd-none": "󰂛", "dnd-notification": "󰂛<span foreground='#e33a8e'><sup>●</sup></span>",
+      "inhibited-none": "󰂚", "inhibited-notification": "󰂚<span foreground='#e33a8e'><sup>●</sup></span>",
+      "dnd-inhibited-none": "󰂛", "dnd-inhibited-notification": "󰂛<span foreground='#e33a8e'><sup>●</sup></span>"
+    },
+    "tooltip": false,
+    "escape": true,
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw"
+  },
+
+  "tray": { "icon-size": 15, "spacing": 8 },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "pidof hyprlock || hyprlock"
+  }
+}

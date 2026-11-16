@@ -1,0 +1,47 @@
+// CODE4U · 4 paradas
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left   "#[fg=#e33a8e,bold] 󰧱 CODE4U #[fg=#2a2f5e]│ {tabs}"
+                format_right  "{mode}"
+                format_space  ""
+
+                tab_normal    "#[fg=#6b79d6] {name} "
+                tab_active    "#[bg=#e33a8e,fg=#0d0f24,bold] {name} "
+                tab_separator " "
+
+                mode_normal   ""
+                mode_locked   "#[fg=#d8323c,bold] BLOQUEADO "
+                mode_pane     "#[fg=#6bc9d6,bold] PANE "
+                mode_tab      "#[fg=#6bc9d6,bold] TAB "
+                mode_resize   "#[fg=#f2c76b,bold] RESIZE "
+                mode_move     "#[fg=#f2c76b,bold] MOVER "
+                mode_scroll   "#[fg=#aab4f2,bold] SCROLL "
+                mode_search   "#[fg=#aab4f2,bold] BUSCAR "
+                mode_session  "#[fg=#ff7cbd,bold] SESIÓN "
+                mode_tmux     "#[fg=#ff7cbd,bold] TMUX "
+            }
+        }
+        children
+    }
+
+    tab name="01 ORIGIN" focus=true {
+        pane
+    }
+    tab name="02 CODE" {
+        pane split_direction="vertical" {
+            pane size="65%" name="editor"
+            pane name="run"
+        }
+    }
+    tab name="03 GIT" {
+        pane
+    }
+    tab name="04 SYS" {
+        pane split_direction="horizontal" {
+            pane command="btop" size="70%" name="btop"
+            pane name="shell"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+// CODE4U · zellij  (en el tema legacy, "green" = marco/elemento activo)
+themes {
+    code4u {
+        fg "#f2ead8"
+        bg "#1b1f4a"
+        black "#0d0f24"
+        red "#d8323c"
+        green "#e33a8e"
+        yellow "#f2c76b"
+        blue "#6b79d6"
+        magenta "#ff7cbd"
+        cyan "#6bc9d6"
+        white "#f2ead8"
+        orange "#f2b0c9"
+    }
+}

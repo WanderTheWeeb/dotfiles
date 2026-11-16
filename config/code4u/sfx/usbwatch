@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Suena al conectar/desconectar memorias USB (eventos udev, sin root)
+udevadm monitor --udev --subsystem-match=block/disk | while read -r _ _ action _; do
+  case "$action" in add) "$HOME/.config/code4u/sfx/play" usb-in ;; remove) "$HOME/.config/code4u/sfx/play" usb-out ;; esac
+done

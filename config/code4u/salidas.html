@@ -1,0 +1,33 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Salidas</title>
+<style>
+:root{--bg:#0d0f24;--pane:#12153a;--raise:#1b1f4a;--line:#6b79d6;--la:#6b79d659;--dim:#aab4f2;--fg:#f2ead8;--accent:#e33a8e;--neon:#ff7cbd}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg) url("../hypr/wall/code4u.png") center/cover;color:var(--fg);font-family:"Courier Prime",monospace}
+main{min-height:100%;display:grid;place-content:center;gap:18px;padding:24px;background:#0d0f24aa}
+.lbl{font-size:10px;letter-spacing:3px;color:var(--dim);text-transform:uppercase}
+h1{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(40px,7vw,84px);letter-spacing:6px;margin:0;line-height:1}
+.clk{font-family:Anton,Impact,sans-serif;font-size:22px;letter-spacing:3px;color:var(--neon);text-shadow:0 0 3px #ff7cbdf2,0 0 10px #e33a8ed9,0 0 24px #e33a8e99}
+form{display:flex;background:var(--pane);border:1.5px solid #6b79d68c;border-radius:2px}
+form span{color:var(--accent);padding:12px 4px 12px 14px;font-size:18px}
+input{flex:1;background:none;border:0;color:var(--fg);font:18px "Courier Prime",monospace;padding:12px;outline:0}
+form:focus-within{border-color:var(--accent)}
+.board{border:1.5px solid var(--la);min-width:min(680px,90vw);background:#0d0f24cc}
+.board a{display:grid;grid-template-columns:96px 1fr 110px;padding:11px 16px;font-size:15px;letter-spacing:1px;color:var(--fg);text-decoration:none;border-top:1px dashed var(--la)}
+.board a:first-child{border-top:0}
+.board a span:first-child{color:var(--line)}
+.board a span:last-child{font-size:10px;letter-spacing:2px;text-align:right;color:#aab4f299;align-self:center}
+.board a:hover,.board a:focus{background:#e33a8e1f;box-shadow:inset 3px 0 var(--accent);outline:0}
+.board a:hover span:last-child,.board a:focus span:last-child{color:var(--neon)}
+.ft{display:flex;justify-content:space-between}
+</style></head><body><main>
+<div class="ft"><span class="lbl">Nueva pestaña · tablero de salidas</span><span class="clk" id="c">--:--</span></div>
+<h1>¿A DÓNDE VAMOS?</h1>
+<form action="https://duckduckgo.com/" method="get"><span>❯</span><input name="q" placeholder="buscar destino…" autofocus autocomplete="off"></form>
+<nav class="board">
+<a href="https://github.com"><span>GATE 01</span><span>github.com</span><span>BOARDING</span></a>
+<a href="https://wiki.hypr.land"><span>GATE 02</span><span>wiki.hypr.land</span><span>ON TIME</span></a>
+<a href="https://youtube.com"><span>GATE 03</span><span>youtube.com</span><span>ON TIME</span></a>
+<a href="https://reddit.com/r/unixporn"><span>GATE 04</span><span>reddit.com/r/unixporn</span><span>ON TIME</span></a>
+<a href="https://wiki.archlinux.org"><span>GATE 05</span><span>wiki.archlinux.org</span><span>ON TIME</span></a>
+</nav>
+<div class="lbl">CODE4U · Ruta 02 · WEB</div>
+</main><script>const p=n=>String(n).padStart(2,'0'),t=()=>{const d=new Date;c.textContent=`DEP ${p(d.getHours())}:${p(d.getMinutes())}`};t();setInterval(t,10000)</script></body></html>

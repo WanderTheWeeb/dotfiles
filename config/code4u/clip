@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# CODE4U · historial del portapapeles (SUPER+V)
+#   Enter = copiar · Alt+D = borrar entrada · Alt+X = vaciar todo
+command -v cliphist >/dev/null || { notify-send -a CAPTURA "FALTA CLIPHIST" "sudo pacman -S cliphist"; exit 1; }
+pkill -x rofi && exit 0
+SFX="$HOME/.config/code4u/sfx/play"
+"$SFX" launch &
+while :; do
+  SEL=$(cliphist list | rofi -dmenu -i -p "PORTAPAPELES" -display-columns 2 \
+        -mesg "<span size='small' foreground='#aab4f2'>ENTER copiar · ALT+D borrar · ALT+X vaciar todo</span>" \
+        -kb-custom-1 "Alt+d" -kb-custom-2 "Alt+x" \
+        -theme-str 'entry { placeholder: "¿qué copiaste?"; } window { width: 720px; } listview { lines: 12; }')
+  code=$?
+  case $code in
+    0)  [ -n "$SEL" ] && cliphist decode <<<"$SEL" | wl-copy && "$SFX" vol; exit 0 ;;
+    10) [ -n "$SEL" ] && cliphist delete <<<"$SEL"; continue ;;
+    11) cliphist wipe; notify-send -a OSD "PORTAPAPELES" "Historial vaciado"; exit 0 ;;
+    *)  exit 0 ;;
+  esac
+done

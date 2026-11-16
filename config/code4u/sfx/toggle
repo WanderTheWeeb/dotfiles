@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+D="$HOME/.config/code4u/sfx"
+if [ -e "$D/.mute" ]; then rm "$D/.mute"; "$D/play" chime; notify-send -a SFX "SONIDO ON" "Efectos de la terminal activados"
+else touch "$D/.mute"; notify-send -a SFX "SONIDO OFF" "Efectos silenciados"; fi

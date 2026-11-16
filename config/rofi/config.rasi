@@ -1,0 +1,76 @@
+/* CODE4U · rofi — explorador de archivos (SUPER) */
+configuration {
+  modi: "drun,filebrowser,window";
+  drun-display-format: "{name}";
+  kb-mode-next: "Control+Tab";
+  kb-mode-previous: "Control+ISO_Left_Tab";
+  font: "Courier Prime 12";
+  show-icons: true;
+  icon-theme: "Adwaita";
+  display-filebrowser: "ARCHIVOS";
+  display-drun: "SALIDAS";
+  display-window: "VENTANAS";
+  filebrowser {
+    directory: "~";
+    directories-first: true;
+    sorting-method: "name";
+    show-hidden: false;
+    command: "xdg-open";
+  }
+  kb-cancel: "Escape,Super_L";
+}
+
+* {
+  bg: #0d0f24f2; pane: #12153a; raise: #1b1f4a;
+  line: #6b79d6; dim: #aab4f2; fg: #f2ead8;
+  accent: #e33a8e; neon: #ff7cbd;
+  background-color: transparent;
+  text-color: @fg;
+}
+
+window {
+  width: 640px;
+  background-color: @raise;
+  border: 2px;
+  border-color: @line;
+  border-radius: 0;
+  padding: 18px 20px;
+}
+mainbox { spacing: 12px; children: [ inputbar, message, listview, mode-switcher ]; }
+
+inputbar {
+  text-color: #f2ead8;
+  background-color: @pane;
+  border: 1.5px; border-color: #6b79d68c;
+  padding: 9px 12px;
+  spacing: 10px;
+  children: [ textbox-l, textbox-sep, entry, textbox-r ];
+}
+prompt { text-color: @accent; font: "Anton 13"; }
+textbox-sep { expand: false; str: "❯"; text-color: @accent; }
+textbox-l, textbox-r { expand: true; str: ""; }
+entry { expand: false; width: 18em; text-color: #f2ead8; placeholder: "¿qué buscas?"; placeholder-color: @line; cursor-color: @accent; }
+
+listview {
+  lines: 9;
+  columns: 1;
+  spacing: 0;
+  border: 1.5px; border-color: #6b79d659;
+  scrollbar: false;
+  fixed-height: true;
+}
+element { padding: 7px 12px; spacing: 10px; text-color: @dim; border: 0 0 1px dash 0; border-color: #6b79d640; }
+element-icon { size: 18px; }
+element-text { text-color: inherit; highlight: bold underline #ff7cbd; vertical-align: 0.5; }
+element normal.normal, element alternate.normal { background-color: transparent; text-color: #aab4f2; }
+element normal.active, element alternate.active { background-color: transparent; text-color: #6bc9d6; }
+element normal.urgent, element alternate.urgent { background-color: transparent; text-color: #d8323c; }
+element selected.active, element selected.urgent { background-color: #e33a8e24; text-color: #f2ead8; }
+element selected.normal { background-color: #e33a8e24; text-color: @fg; border: 0 0 1px dash 3px; border-color: @accent; }
+
+message { border: 1.5px; border-color: #6b79d659; padding: 6px 10px; }
+textbox { text-color: @dim; }
+
+mode-switcher { spacing: 0; }
+button { padding: 5px; background-color: transparent; text-color: @dim; border: 0 0 2px 0; border-color: transparent; font: "Courier Prime 9"; }
+button selected { background-color: #e33a8e24; text-color: @fg; border-color: @accent; }

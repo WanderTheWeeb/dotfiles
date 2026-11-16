@@ -1,0 +1,7 @@
+# CODE4U · login (greetd + tuigreet). Se copia a /etc/greetd/config.toml
+[terminal]
+vt = 1
+
+[default_session]
+command = "tuigreet --time --time-format '%H:%M · %A %d %B' --remember --remember-user-session --asterisks --greeting 'C O D E 4 U   ·   B O A R D I N G   ·   A N D É N  4' --theme 'border=magenta;title=magenta;greet=lightblue;text=white;prompt=magenta;time=lightblue;action=blue;button=magenta;container=black;input=white' --sessions /usr/share/wayland-sessions --cmd start-hyprland"
+user = "greeter"

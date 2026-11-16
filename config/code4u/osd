@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# CODE4U · OSD de volumen/brillo — uso: osd vol up|down|mute  |  osd mic mute  |  osd bri up|down
+S="$HOME/.config/code4u/sfx/play"
+show(){ notify-send -a OSD -t 1400 -h string:x-canonical-private-synchronous:osd -h "int:value:$2" "$1" "$3"; }
+bar(){ local n=$(( $1 / 5 )) s=""; for i in $(seq 1 20); do [ $i -le $n ] && s+="▮" || s+="▯"; done; echo "$s  $1%"; }
+case "$1/$2" in
+  vol/up)   wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
+  vol/down) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+  vol/mute) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+  mic/mute) wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+            wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && show "MIC" 0 "SILENCIADO" || show "MIC" 100 "ACTIVO"; exit ;;
+  bri/up)   brightnessctl -q -e4 -n2 set 5%+ ;;
+  bri/down) brightnessctl -q -e4 -n2 set 5%- ;;
+esac
+if [ "$1" = bri ]; then
+  p=$(( $(brightnessctl g) * 100 / $(brightnessctl m) )); show "BRILLO" "$p" "$(bar $p)"
+else
+  out=$(wpctl get-volume @DEFAULT_AUDIO_SINK@); p=$(awk '{printf "%d", $2*100}' <<<"$out")
+  if grep -q MUTED <<<"$out"; then show "VOLUMEN" 0 "MUTE"; else show "VOLUMEN" "$p" "$(bar $p)"; "$S" vol & fi
+fi

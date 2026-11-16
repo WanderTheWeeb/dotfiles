@@ -1,0 +1,91 @@
+/* ╔══════════════════════════════════════════╗
+   ║  CODE4U · Vesktop / Discord              ║
+   ║  Discord renombra variables seguido: si   ║
+   ║  algo no pinta, Ctrl+Shift+I y busca.     ║
+   ╚══════════════════════════════════════════╝ */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap");
+
+:root, .theme-dark, .theme-darker, .theme-midnight, .visual-refresh {
+  --c4-bg: #0d0f24; --c4-deep: #090b1c; --c4-pane: #12153a; --c4-raise: #1b1f4a;
+  --c4-line: #6b79d6; --c4-dim: #aab4f2; --c4-fg: #f2ead8; --c4-accent: #e33a8e; --c4-neon: #ff7cbd;
+
+  /* refresh visual (2025+) */
+  --background-base-lowest: var(--c4-deep);
+  --background-base-lower: var(--c4-bg);
+  --background-base-low: var(--c4-pane);
+  --background-surface-high: var(--c4-raise);
+  --background-surface-higher: var(--c4-raise);
+  --background-surface-highest: #232861;
+  --background-mod-subtle: #6b79d61f;
+  --background-mod-normal: #6b79d633;
+  --background-mod-strong: #6b79d64d;
+  --chat-background-default: var(--c4-bg);
+  --border-subtle: #6b79d659;
+  --border-normal: #6b79d680;
+  --border-strong: var(--c4-line);
+  --text-default: var(--c4-fg);
+  --text-strong: var(--c4-fg);
+  --text-muted: var(--c4-dim);
+  --text-subtle: #aab4f2b3;
+  --text-link: var(--c4-neon);
+  --interactive-text-default: var(--c4-dim);
+  --interactive-text-hover: var(--c4-fg);
+  --interactive-text-active: var(--c4-fg);
+  --interactive-background-selected: var(--c4-raise);
+  --brand-500: var(--c4-accent);
+  --brand-560: #c92e7b;
+  --brand-experiment: var(--c4-accent);
+  --brand-experiment-560: #c92e7b;
+  --brand-experiment-600: #b0286b;
+  --bg-brand: var(--c4-accent);
+  --button-filled-brand-background-active: #b0286b;
+  --control-brand-foreground: var(--c4-accent);
+  --button-filled-brand-background: var(--c4-accent);
+  --button-filled-brand-background-hover: #c92e7b;
+  --mention-foreground: var(--c4-neon);
+  --mention-background: #e33a8e24;
+  --status-positive: #7fd6a8;
+  --status-warning: #f2c76b;
+  --status-danger: #d8323c;
+
+  /* nombres clásicos */
+  --background-primary: var(--c4-bg);
+  --background-secondary: var(--c4-pane);
+  --background-secondary-alt: var(--c4-raise);
+  --background-tertiary: var(--c4-deep);
+  --background-floating: var(--c4-raise);
+  --channeltextarea-background: var(--c4-pane);
+  --header-primary: var(--c4-fg);
+  --header-secondary: var(--c4-dim);
+  --text-normal: var(--c4-fg);
+  --channels-default: var(--c4-dim);
+  --modal-background: var(--c4-raise);
+
+  --radius-xs: 0; --radius-sm: 2px; --radius-md: 2px; --radius-lg: 3px;
+  --font-primary: "Courier Prime", "Noto Sans", "Noto Sans Math", "Noto Sans Symbols", "Noto Sans Symbols 2", "Noto Sans CJK JP", "Noto Color Emoji", "Symbols Nerd Font", monospace;
+  --font-display: "Anton", "Courier Prime", "Noto Sans", "Noto Sans Math", "Noto Sans Symbols", "Noto Sans Symbols 2", "Noto Sans CJK JP", "Noto Color Emoji", "Symbols Nerd Font", sans-serif;
+  --font-headline: "Anton", "Courier Prime", "Noto Sans", "Noto Sans Math", "Noto Sans Symbols", "Noto Sans Symbols 2", "Noto Sans CJK JP", "Noto Color Emoji", "Symbols Nerd Font", sans-serif;
+  --font-code: "JetBrainsMono Nerd Font", "Noto Sans", "Noto Sans Math", "Noto Sans Symbols", "Noto Sans Symbols 2", "Noto Sans CJK JP", "Noto Color Emoji", "Symbols Nerd Font", monospace;
+}
+
+/* tipografía tipo letrero en títulos */
+[class*="title_"][class*="container_"] h1, [class*="titleWrapper_"] h1,
+[class*="name_"][class*="header_"], [class*="guildName_"] {
+  font-family: "Anton", "Noto Sans", "Noto Sans Math", "Noto Sans Symbols", "Noto Sans Symbols 2", "Noto Sans CJK JP", "Noto Color Emoji", "Symbols Nerd Font", sans-serif !important; letter-spacing: 1.5px; text-transform: uppercase;
+}
+code, pre, [class*="codeBlock"] { font-family: "JetBrainsMono Nerd Font", "Noto Sans", "Noto Sans Math", "Noto Sans Symbols", "Noto Sans Symbols 2", "Noto Sans CJK JP", "Noto Color Emoji", "Symbols Nerd Font", monospace !important; }
+code.inline { background: var(--c4-raise) !important; color: var(--c4-neon) !important; }
+
+/* canal seleccionado = parada activa */
+[class*="modeSelected_"] [class*="link_"], [class*="selected_"] > [class*="link_"] {
+  background: var(--c4-raise) !important; box-shadow: inset 2px 0 var(--c4-accent);
+}
+/* caja de texto */
+[class*="channelTextArea_"] [class*="scrollableContainer_"] {
+  background: var(--c4-pane) !important; border: 1.5px solid #6b79d68c; border-radius: 2px;
+}
+[class*="channelTextArea_"]:focus-within [class*="scrollableContainer_"] { border-color: var(--c4-accent); }
+/* menciones con brillo */
+[class*="mentioned_"] { box-shadow: inset 2px 0 var(--c4-accent); }
+::selection { background: #e33a8e55; }
+::-webkit-scrollbar-thumb { background: var(--c4-raise) !important; border-radius: 0 !important; }

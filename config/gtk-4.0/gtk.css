@@ -1,0 +1,22 @@
+/* CODE4U · GTK4 / libadwaita (satty, swaync, apps nuevas) */
+@define-color accent_color #ff7cbd;
+@define-color accent_bg_color #e33a8e;
+@define-color accent_fg_color #f2ead8;
+@define-color window_bg_color #0d0f24;
+@define-color window_fg_color #f2ead8;
+@define-color view_bg_color #12153a;
+@define-color view_fg_color #f2ead8;
+@define-color headerbar_bg_color #0d0f24;
+@define-color headerbar_fg_color #f2ead8;
+@define-color headerbar_border_color #6b79d6;
+@define-color sidebar_bg_color #0d0f24;
+@define-color card_bg_color #12153a;
+@define-color card_fg_color #f2ead8;
+@define-color popover_bg_color #1b1f4a;
+@define-color popover_fg_color #f2ead8;
+@define-color dialog_bg_color #1b1f4a;
+@define-color dialog_fg_color #f2ead8;
+@define-color destructive_bg_color #d8323c;
+@define-color success_bg_color #7fd6a8;
+@define-color warning_bg_color #f2c76b;
+@define-color borders #2a2f5e;

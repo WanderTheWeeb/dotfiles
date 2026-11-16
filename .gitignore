@@ -1,0 +1,4 @@
+*.bak*
+*.pre-code4u-*
+config/zellij/plugins/
+__pycache__/
