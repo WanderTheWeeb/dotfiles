@@ -35,6 +35,8 @@ local browser     = "firefox"
 ---- AUTOSTART ----
 -------------------
 hl.on("hyprland.start", function()
+    -- greetd entra solo (autologin): la sesión arranca bloqueada con el boarding pass
+    hl.exec_cmd("pidof hyprlock || hyprlock --immediate-render --no-fade-in")
     hl.exec_cmd("~/.config/code4u/wall/start")   -- fondo animado (mpvpaper) o estático (hyprpaper)
     hl.exec_cmd("waybar")
     hl.exec_cmd("command -v swaync >/dev/null && swaync || mako")   -- avisos tipo boleto
