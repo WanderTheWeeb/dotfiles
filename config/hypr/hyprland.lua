@@ -250,6 +250,8 @@ hl.window_rule({
 hl.layer_rule({ name = "nl-launcher", match = { namespace = "^launcher$" },      animation = "popin 92%", dim_around = true })
 hl.layer_rule({ name = "nl-notifs",   match = { namespace = "^notifications$" }, animation = "slide right" })
 hl.layer_rule({ name = "nl-swaync",   match = { namespace = "^swaync-control-center$" }, animation = "slide right" })
+-- slurp (selección de capturas): sin animación al cerrar, si no el borde magenta sale en la foto
+hl.layer_rule({ name = "nl-slurp",    match = { namespace = "^selection$" },     no_anim = true })
 hl.layer_rule({ name = "nl-bar",      match = { namespace = "^waybar$" },        animation = "slide top" })
 
 -- Discord (Vesktop) vive en la parada 03 · CHAT

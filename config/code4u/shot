@@ -12,7 +12,7 @@ SFX="$HOME/.config/code4u/sfx/play"
 slurp_c4(){ slurp -b 0d0f2488 -c e33a8eff -s e33a8e1a -w 2 -B 0d0f2400 "$@"; }
 
 case "${1:-region}" in
-  region|edit) GEO=$(slurp_c4) || exit 0; grim -g "$GEO" "$FILE" ;;
+  region|edit) GEO=$(slurp_c4) || exit 0; sleep 0.15; grim -g "$GEO" "$FILE" ;;   # espera a que se quite el overlay
   window)      GEO=$(hyprctl activewindow -j | python3 -c 'import json,sys;w=json.load(sys.stdin);print(f"{w[\"at\"][0]},{w[\"at\"][1]} {w[\"size\"][0]}x{w[\"size\"][1]}")' 2>/dev/null)
                [ -n "$GEO" ] && grim -g "$GEO" "$FILE" || grim "$FILE" ;;
   screen)      grim "$FILE" ;;
