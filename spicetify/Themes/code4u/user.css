@@ -1,0 +1,53 @@
+/* CODE4U · spicetify — boleto de ruta nocturna */
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+:root {
+  --c4-mag: #e33a8e; --c4-pink: #ff7cbd; --c4-blue: #6b79d6;
+  --c4-dim: #2a2f5e; --c4-cream: #f2ead8; --c4-night: #0d0f24;
+  --font-family: "MartianMono Nerd Font", "Courier Prime", monospace !important;
+  --encore-body-font-stack: "MartianMono Nerd Font", monospace !important;
+  --encore-title-font-stack: "Anton", "MartianMono Nerd Font", sans-serif !important;
+  --encore-variable-font-stack: "MartianMono Nerd Font", monospace !important;
+}
+
+body, button, input, .encore-text { font-family: var(--encore-body-font-stack) !important; }
+
+/* títulos grandes en Anton y en mayúsculas, como letrero de destino */
+h1, .main-entityHeader-title, .encore-text-headline-large, .encore-text-headline-medium,
+.main-shelf-title, .main-view-container h2 {
+  font-family: var(--encore-title-font-stack) !important;
+  text-transform: uppercase; letter-spacing: 0.04em; font-weight: 400 !important;
+}
+
+/* esquinas rectas: todo es boleto */
+*, *::before, *::after { border-radius: 0 !important; }
+/* menos los botones de play y las portadas de artista */
+.main-playButton-PlayButton, .main-playButton-PlayButton *, [data-encore-id="buttonPrimary"],
+[data-encore-id="buttonPrimary"] *, .main-avatar-avatar, .main-avatar-avatar * { border-radius: 50% !important; }
+
+/* paneles con borde de ruta */
+.Root__nav-bar, .Root__main-view, .Root__right-sidebar, .main-nowPlayingBar-container,
+.Root__now-playing-bar { border: 1px solid var(--c4-dim) !important; background-color: var(--spice-main) !important; }
+.main-nowPlayingBar-container, .Root__now-playing-bar { border-top: 2px solid var(--c4-mag) !important; }
+
+/* barra de progreso / volumen: línea de ruta magenta */
+.progress-bar { --fg-color: var(--c4-mag) !important; --bg-color: var(--c4-dim) !important; }
+.progress-bar__slider { background-color: var(--c4-pink) !important; box-shadow: 0 0 8px var(--c4-mag); }
+
+/* fila seleccionada / activa con raya magenta a la izquierda */
+.main-trackList-trackListRow:hover { background-color: #1b1f4a !important; }
+.main-trackList-trackListRow[aria-selected="true"], .main-trackList-active {
+  background-color: #5a1f45 !important; box-shadow: inset 3px 0 0 var(--c4-mag);
+}
+
+/* canción que suena en magenta */
+.main-trackList-playingIcon, .main-trackList-active .main-trackList-rowTitle,
+.main-nowPlayingWidget-nowPlaying .main-trackInfo-name a { color: var(--c4-mag) !important; }
+
+/* tarjetas tipo boleto con perforación */
+.main-card-card { background-color: #12153a !important; border: 1px dashed var(--c4-dim) !important; }
+.main-card-card:hover { border-color: var(--c4-mag) !important; }
+
+/* scrollbars finitas */
+::-webkit-scrollbar { width: 6px !important; }
+::-webkit-scrollbar-thumb { background: var(--c4-blue) !important; }
