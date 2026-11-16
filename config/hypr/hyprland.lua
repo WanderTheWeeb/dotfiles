@@ -265,3 +265,10 @@ hl.window_rule({
     match   = { class = "^([Tt]hunar)$" },
     opacity = "0.85 0.80",
 })
+
+-- Spotify translúcido como Thunar (CEF no deja fondo rgba: opacidad de ventana)
+hl.window_rule({
+    name    = "spotify-glass",
+    match   = { class = "^([Ss]potify)$" },
+    opacity = "0.85 0.80",
+})
