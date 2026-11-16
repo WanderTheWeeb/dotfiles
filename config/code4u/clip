@@ -1,35 +1,57 @@
 #!/usr/bin/env bash
 # CODE4U · historial del portapapeles (SUPER+V)
 #   Enter = copiar · Alt+D = borrar entrada · Alt+X = vaciar todo
-command -v cliphist >/dev/null || { notify-send -a CAPTURA "FALTA CLIPHIST" "sudo pacman -S cliphist"; exit 1; }
-pkill -x rofi && exit 0
+# Rofi en modo script: al borrar la ventana NO se cierra, la lista se queda donde estaba,
+# el siguiente elemento sube a ocupar el hueco y arriba se ve qué se borró.
 SFX="$HOME/.config/code4u/sfx/play"
-"$SFX" launch &
-THUMBS="$HOME/.cache/code4u/clip"; mkdir -p "$THUMBS"
-# lista con miniaturas: las imágenes se decodifican una vez a ~/.cache y rofi las muestra como ícono
-listar(){
+THUMBS="$HOME/.cache/code4u/clip"
+HELP="<span size='small' foreground='#aab4f2'>ENTER copiar · ALT+D borrar · ALT+X vaciar todo</span>"
+
+# ── lanzador: abre rofi usando este mismo archivo como modo ──
+if [ -z "${ROFI_RETV:-}" ]; then
+  command -v cliphist >/dev/null || { notify-send -a CAPTURA "FALTA CLIPHIST" "sudo pacman -S cliphist"; exit 1; }
+  pkill -x rofi && exit 0
+  mkdir -p "$THUMBS"
+  "$SFX" launch &
+  exec rofi -show clip -modi "clip:$0" -show-icons \
+    -kb-custom-1 "Alt+d" -kb-custom-2 "Alt+x" \
+    -theme-str 'entry { placeholder: "¿qué copiaste?"; } window { width: 720px; } listview { lines: 12; } element-icon { size: 3em; }'
+fi
+
+# ── modo script (rofi nos llama) ──
+esc(){ local s=${1//&/&amp;}; s=${s//</&lt;}; printf '%s' "${s//>/&gt;}"; }
+
+listar(){ # filas: texto visible + info (línea cruda de cliphist) + miniatura si es imagen
+  printf '\0prompt\x1fPORTAPAPELES\n\0use-hot-keys\x1ftrue\n\0no-custom\x1ftrue\n\0markup-rows\x1ftrue\n'
   cliphist list | while IFS= read -r line; do
-    id=${line%%$'\t'*}
-    if [[ $line == *"[[ binary data"*@(png|jpg|jpeg|webp|bmp)* ]]; then
-      t="$THUMBS/$id.png"
+    txt=${line#*$'\t'}
+    if [[ $txt == "[[ binary data"*@(png|jpg|jpeg|webp|bmp)* ]]; then
+      id=${line%%$'\t'*}; t="$THUMBS/$id.png"
       [ -s "$t" ] || cliphist decode <<<"$line" > "$t" 2>/dev/null
-      printf '%s\0icon\x1f%s\n' "$line" "$t"
+      printf '%s\0icon\x1f%s\x1finfo\x1f%s\n' "$(esc "${txt:0:200}")" "$t" "$line"
     else
-      printf '%s\n' "$line"
+      printf '%s\0info\x1f%s\n' "$(esc "${txt:0:200}")" "$line"
     fi
   done
 }
-shopt -s extglob
-while :; do
-  SEL=$(listar | rofi -dmenu -i -p "PORTAPAPELES" -display-columns 2 -show-icons \
-        -mesg "<span size='small' foreground='#aab4f2'>ENTER copiar · ALT+D borrar · ALT+X vaciar todo</span>" \
-        -kb-custom-1 "Alt+d" -kb-custom-2 "Alt+x" \
-        -theme-str 'entry { placeholder: "¿qué copiaste?"; } window { width: 720px; } listview { lines: 12; } element-icon { size: 3em; }')
-  code=$?
-  case $code in
-    0)  [ -n "$SEL" ] && cliphist decode <<<"$SEL" | wl-copy && "$SFX" vol; exit 0 ;;
-    10) [ -n "$SEL" ] && cliphist delete <<<"$SEL"; continue ;;
-    11) cliphist wipe; rm -f "$THUMBS"/*.png; notify-send -a OSD "PORTAPAPELES" "Historial vaciado"; exit 0 ;;
-    *)  exit 0 ;;
-  esac
-done
+
+case "${ROFI_RETV}" in
+  0) printf '\0message\x1f%s\n' "$HELP"; listar ;;                      # primera vez
+  1) [ -n "${ROFI_INFO:-}" ] && cliphist decode <<<"$ROFI_INFO" | wl-copy >/dev/null 2>&1  # Enter: copiar y cerrar
+     "$SFX" vol >/dev/null 2>&1 & ;;
+  10) # Alt+D: borrar sin cerrar; la selección se queda en el mismo renglón
+     if [ -n "${ROFI_INFO:-}" ]; then
+       idx=$(cliphist list | grep -nxF -- "$ROFI_INFO" | head -1 | cut -d: -f1)
+       cliphist delete <<<"$ROFI_INFO"
+       rm -f "$THUMBS/${ROFI_INFO%%$'\t'*}.png"
+       "$SFX" trash >/dev/null 2>&1 &
+       gone=${ROFI_INFO#*$'\t'}; gone=$(esc "${gone:0:60}")
+       total=$(cliphist list | wc -l)
+       sel=$(( ${idx:-1} - 1 )); (( sel >= total )) && sel=$(( total - 1 )); (( sel < 0 )) && sel=0
+       printf '\0message\x1f%s\n' "<span foreground='#e33a8e'><b>󰆴 SE FUE AL BOTE</b></span>  <span foreground='#aab4f2'><s>$gone</s></span>"
+       printf '\0keep-selection\x1ftrue\n\0keep-filter\x1ftrue\n\0new-selection\x1f%s\n' "$sel"
+     fi
+     listar ;;
+  11) cliphist wipe; rm -f "$THUMBS"/*.png; "$SFX" trash >/dev/null 2>&1 &  # Alt+X: vaciar y cerrar
+      notify-send -a OSD "PORTAPAPELES" "Historial vaciado" ;;
+esac
