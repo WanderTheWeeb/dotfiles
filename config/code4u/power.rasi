@@ -1,0 +1,22 @@
+/* CODE4U · menú de apagado (botón ⏻ de waybar) */
+configuration { font: "Courier Prime 11"; show-icons: false; kb-cancel: "Escape,Super_L"; }
+
+* {
+  bg: #0d0f24f2; pane: #12153a; raise: #1b1f4a;
+  line: #6b79d6; dim: #aab4f2; fg: #f2ead8; accent: #e33a8e;
+  background-color: transparent; text-color: @fg;
+}
+window {
+  location: north east; anchor: north east; x-offset: -8px; y-offset: 46px;
+  width: 300px;
+  background-color: @raise; border: 2px; border-color: @line; border-radius: 0;
+  padding: 14px;
+}
+mainbox { spacing: 10px; children: [ inputbar, listview ]; }
+inputbar { children: [ prompt ]; padding: 0 0 8px 0; border: 0 0 1px dash 0; border-color: #6b79d659; }
+prompt { font: "Anton 14"; text-color: @accent; }
+listview { lines: 5; fixed-height: false; spacing: 4px; scrollbar: false; }
+element { padding: 9px 12px; border: 0 0 0 3px; border-color: transparent; }
+element-text { font: "JetBrainsMono Nerd Font 11"; text-color: @dim; background-color: transparent; }
+element selected { background-color: #e33a8e33; border-color: @accent; }
+element selected element-text { text-color: @fg; }

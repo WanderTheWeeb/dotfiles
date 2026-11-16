@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# CODE4U · menú de apagado: bloquear / suspender / cerrar sesión / reiniciar / apagar
+# Lo abre el botón ⏻ de waybar. Lo que no tiene vuelta (reiniciar, apagar, salir) pide confirmación.
+THEME="$HOME/.config/code4u/power.rasi"
+pkill -x rofi && exit 0
+
+menu(){ rofi -dmenu -i -no-custom -p "$1" -theme "$THEME" -format i; }
+confirm(){ [ "$(printf '󰄬  SÍ, %s\n󰅖  NO\n' "$1" | menu "¿SEGURO?")" = 0 ]; }
+
+ch=$(printf '%s\n' \
+  "󰌾  BLOQUEAR" \
+  "󰤄  SUSPENDER" \
+  "󰍃  CERRAR SESIÓN" \
+  "󰜉  REINICIAR" \
+  "󰐥  APAGAR" | menu "FIN DEL VIAJE")
+
+case "$ch" in
+  0) pidof hyprlock || hyprlock ;;
+  1) systemctl suspend ;;                      # hypridle bloquea antes de dormir
+  2) confirm "SALIR"     && hyprctl dispatch 'hl.dsp.exit()' ;;
+  3) confirm "REINICIAR" && systemctl reboot ;;
+  4) confirm "APAGAR"    && systemctl poweroff ;;
+esac
